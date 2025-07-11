@@ -1,0 +1,16 @@
+default:
+  tags:
+  - gitlab-runner-1
+
+stages:
+  - deployment_of_mysql_pods_to_gke_cluster
+
+deployment_to_gke:
+  stage: deployment_of_mysql_pods_to_gke_cluster
+  script:
+    - helm upgrade --install mysql bitnami/mysql/ -f bitnami/mysql/values.yaml --create-namespace --namespace mysql --set secondary.replicaCount=1,primary.persistence.enabled=true,primary.persistence.size=1Gi,architecture=replication,secondary.persistence.enabled=true,secondary.persistence.size=1Gi,global.storageClass=standard-rwo,primary.service.type=ClusterIP,auth.rootPassword=Dexter@123,auth.database=bankappdb
+    - kubectl get pods -n mysql
+  when: manual
+
+#  only:
+#    - main # Or your desired branch  
