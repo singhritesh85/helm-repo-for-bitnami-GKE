@@ -78,7 +78,7 @@ diagnosticMode:
 ##
 image:
   registry: docker.io
-  repository: bitnami/memcached
+  repository: bitnamilegacy/memcached        ###bitnami/memcached
   tag: 1.6.24-debian-12-r0
   digest: ""
   ## Specify a imagePullPolicy
